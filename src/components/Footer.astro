@@ -1,8 +1,9 @@
 ---
 import LogoMark from './LogoMark.astro';
+import { GA_MEASUREMENT_ID } from '../lib/analytics';
 
 // Only offer cookie settings when there are cookies to set (Google Analytics configured).
-const hasCookies = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
+const hasCookies = Boolean(GA_MEASUREMENT_ID);
 ---
 
 <footer class="footer">

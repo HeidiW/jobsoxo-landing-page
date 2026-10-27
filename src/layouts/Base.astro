@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import CookieConsent from '../components/CookieConsent.astro';
+import { GA_MEASUREMENT_ID } from '../lib/analytics';
 
 interface Props {
   title: string;
@@ -12,8 +13,8 @@ const { title, description, ogImage = '/app-dashboard.png' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN || 'jobsoxo.com';
-// Google Analytics 4 is optional: with a measurement ID (G-XXXXXXXXXX) set, it loads only after cookie consent.
-const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
+// Google Analytics loads only after cookie consent (see CookieConsent).
+const gaId = GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
