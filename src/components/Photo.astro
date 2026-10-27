@@ -9,9 +9,11 @@ interface Props {
   class?: string;
   /** Load immediately — use for photos visible on first paint (e.g. the hero). */
   eager?: boolean;
+  /** CSS object-position, to keep the subject in frame when the photo is cropped. */
+  position?: string;
 }
 
-const { src, alt, placeholder, class: className, eager = false } = Astro.props;
+const { src, alt, placeholder, class: className, eager = false, position } = Astro.props;
 ---
 
 <div class:list={['photo', className]}>
@@ -23,6 +25,7 @@ const { src, alt, placeholder, class: className, eager = false } = Astro.props;
         loading={eager ? 'eager' : 'lazy'}
         fetchpriority={eager ? 'high' : 'auto'}
         decoding="async"
+        style={position ? `object-position: ${position}` : undefined}
       />
     ) : (
       // PLACEHOLDER — replace by passing `src` once the owner supplies the photo.
