@@ -1,5 +1,8 @@
 ---
 import LogoMark from './LogoMark.astro';
+
+// Only offer cookie settings when there are cookies to set (Google Analytics configured).
+const hasCookies = Boolean(import.meta.env.PUBLIC_GA_MEASUREMENT_ID);
 ---
 
 <footer class="footer">
@@ -12,6 +15,7 @@ import LogoMark from './LogoMark.astro';
     <div class="links">
       <a href="/privacy">Privacy</a>
       <a href="/terms">Terms</a>
+      {hasCookies && <button type="button" class="link-button" data-cookie-settings>Cookie settings</button>}
       <a href="mailto:hello@jobsoxo.com">hello@jobsoxo.com</a>
     </div>
   </div>
@@ -49,11 +53,21 @@ import LogoMark from './LogoMark.astro';
     margin-left: auto;
   }
 
-  .links a {
+  .links a,
+  .link-button {
     color: var(--ink-3);
   }
 
-  .links a:hover {
+  .links a:hover,
+  .link-button:hover {
     color: var(--ink);
+  }
+
+  .link-button {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    cursor: pointer;
   }
 </style>
