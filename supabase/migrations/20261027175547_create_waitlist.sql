@@ -1,4 +1,5 @@
--- Run once in the Supabase SQL editor (Dashboard → SQL Editor → New query).
+-- Waitlist signups from the landing page. Written to by /api/waitlist with the service-role key.
+-- First applied by hand in the SQL editor; every statement is idempotent, so re-running it is safe.
 create table if not exists public.waitlist (
   id         bigint generated always as identity primary key,
   name       text,

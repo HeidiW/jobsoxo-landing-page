@@ -26,8 +26,25 @@ src/pages/terms.astro
 src/pages/api/waitlist.ts     POST endpoint: validate → Supabase → Resend
 src/lib/waitlist.ts           email regex, trades, crew sizes (shared client/server)
 src/styles/global.css         design tokens (light; dark ready via data-theme="dark")
-supabase/waitlist.sql         table definition — run once in Supabase
+supabase/config.toml          Supabase CLI config
+supabase/migrations/          database schema changes, applied in filename order
 public/                       logo, favicons, app screenshots
+```
+
+## Database changes
+
+Schema changes live in `supabase/migrations/`. Never edit a migration that has already run; add a new one instead:
+
+```sh
+npx supabase migration new add_phone_column   # creates supabase/migrations/<timestamp>_add_phone_column.sql
+```
+
+Write the SQL in the new file, then commit and push. With the Supabase GitHub integration connected (working directory `.`), migrations are applied to production when they land on `main`. Without the integration, apply them yourself:
+
+```sh
+npx supabase login
+npx supabase link --project-ref fpgrgfhfcflwlxtjzuin
+npx supabase db push
 ```
 
 ## Before launch
