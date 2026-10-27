@@ -1,0 +1,116 @@
+---
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  /** "landing" shows section links + CTA; "legal" shows a back link. */
+  variant?: 'landing' | 'legal';
+}
+
+const { variant = 'landing' } = Astro.props;
+const homeHref = variant === 'landing' ? '#top' : '/';
+---
+
+<nav class="nav" class:list={[variant]} aria-label="Main">
+  <div class="container nav-inner">
+    <a href={homeHref} class="logo" aria-label="JobsOxo home">
+      <LogoMark size={32} />
+      <span>JobsOxo</span>
+    </a>
+    {
+      variant === 'landing' ? (
+        <>
+          <div class="links">
+            <a href="#what">What it does</a>
+            <a href="#faq">Questions</a>
+          </div>
+          <a href="#join" class="cta">JOIN THE WAITLIST</a>
+        </>
+      ) : (
+        <a href="/" class="back">← Back to home</a>
+      )
+    }
+  </div>
+</nav>
+
+<style>
+  .nav {
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav.landing {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    font: 800 18px var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  .logo:hover {
+    color: var(--ink);
+  }
+
+  .links {
+    display: flex;
+    gap: 28px;
+    margin-left: auto;
+    font: 500 15px var(--font-body);
+  }
+
+  .links a,
+  .back {
+    color: var(--ink-2);
+  }
+
+  .links a:hover,
+  .back:hover {
+    color: var(--ink);
+  }
+
+  .back {
+    margin-left: auto;
+    font: 500 15px var(--font-body);
+  }
+
+  .cta {
+    display: flex;
+    align-items: center;
+    padding: 11px 20px;
+    border-radius: 999px;
+    background: var(--green);
+    color: #fff;
+    font: 600 14px var(--font-body);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .cta:hover {
+    background: var(--green-hover);
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .links {
+      display: none;
+    }
+
+    .cta {
+      margin-left: auto;
+    }
+  }
+</style>

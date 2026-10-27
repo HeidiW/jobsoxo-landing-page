@@ -1,0 +1,445 @@
+---
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import Check from '@lucide/astro/icons/check';
+import { CREW_SIZES, DEFAULT_CREW, TRADES } from '../lib/waitlist';
+---
+
+<section id="join" class="container waitlist">
+  <div class="panel">
+    <div class="pitch">
+      <h2>Join the waitlist.</h2>
+      <p class="lede">
+        We're letting in a small group of contractors first. It's free while in beta, and you'll help decide what we fix
+        next.
+      </p>
+      <ul class="perks">
+        <li><Check size={18} />Free during the beta</li>
+        <li><Check size={18} />No credit card</li>
+        <li><Check size={18} />We'll help you move your clients and jobs in</li>
+      </ul>
+    </div>
+
+    <div class="form-card">
+      <form id="waitlist-form" class="form" novalidate>
+        <label class="field">
+          <span class="label">Your name</span>
+          <input name="name" type="text" autocomplete="name" placeholder="Mike Russo" maxlength="120" />
+        </label>
+
+        <label class="field">
+          <span class="label">Email</span>
+          <input
+            name="email"
+            type="email"
+            autocomplete="email"
+            inputmode="email"
+            placeholder="mike@russopainting.com"
+            maxlength="254"
+            aria-describedby="email-error"
+          />
+          <span id="email-error" class="field-error" hidden>Enter a valid email so we can send your invite.</span>
+        </label>
+
+        <label class="field">
+          <span class="label">What kind of work do you do?</span>
+          <select name="trade">
+            <option value="">Choose one</option>
+            {TRADES.map((t) => <option value={t}>{t}</option>)}
+          </select>
+        </label>
+
+        <fieldset class="field crew">
+          <legend class="label">How big is your crew?</legend>
+          <div class="crew-options">
+            {
+              CREW_SIZES.map((c) => (
+                <label class="crew-option">
+                  <input type="radio" name="crew" value={c} checked={c === DEFAULT_CREW} />
+                  <span>{c}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <!-- Honeypot: hidden from people, filled by bots. -->
+        <div class="hp" aria-hidden="true">
+          <label>Company <input name="company" type="text" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit">
+          <span class="submit-text">SAVE MY SPOT</span><ArrowRight size={18} class="submit-arrow" />
+        </button>
+
+        <p class="form-error" role="alert" hidden>
+          Something went wrong. Try again or email <a href="mailto:hello@jobsoxo.com">hello@jobsoxo.com</a>.
+        </p>
+
+        <span class="fine">We'll only email you about JobsOxo. No spam, no sharing.</span>
+      </form>
+
+      <div class="success" role="status" tabindex="-1" hidden>
+        <div class="success-icon"><Check size={30} /></div>
+        <p class="success-title">You're on the list<span data-first-name></span>.</p>
+        <p class="success-body">
+          We'll email <strong data-email></strong> when your spot opens up. Keep an eye out for a note from hello@jobsoxo.com.
+        </p>
+        <button type="button" class="reset">Sign up someone else</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .waitlist {
+    padding-top: var(--pad-y);
+    padding-bottom: var(--pad-y);
+  }
+
+  .panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+    padding: clamp(28px, 5vw, 72px);
+    border-radius: 32px;
+    background: var(--green);
+    color: #fff;
+  }
+
+  .pitch {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  h2 {
+    font: 700 clamp(44px, 6vw, 80px) / 0.92 var(--font-display);
+    letter-spacing: -0.05em;
+  }
+
+  .lede {
+    max-width: 460px;
+    font: 400 19px/1.5 var(--font-body);
+    opacity: 0.92;
+  }
+
+  .perks {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: 500 16px var(--font-body);
+  }
+
+  .perks li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .form-card {
+    padding: clamp(22px, 3vw, 36px);
+    border-radius: 24px;
+    background: var(--card);
+    color: var(--ink);
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .label {
+    font: 600 14px var(--font-body);
+  }
+
+  input[type='text'],
+  input[type='email'],
+  select {
+    width: 100%;
+    padding: 15px 16px;
+    border: 2px solid var(--ink-3);
+    border-radius: 14px;
+    background: var(--card);
+    font: 500 16px var(--font-body);
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  input[type='text']:focus,
+  input[type='email']:focus,
+  select:focus {
+    border-color: var(--green);
+  }
+
+  input[aria-invalid='true'],
+  input[aria-invalid='true']:focus {
+    border-color: var(--orange);
+  }
+
+  .field-error {
+    font: 500 13px var(--font-body);
+    color: var(--orange-ink);
+  }
+
+  .crew {
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  .crew legend {
+    padding: 0;
+    margin-bottom: 8px;
+  }
+
+  .crew-options {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .crew-option {
+    position: relative;
+  }
+
+  .crew-option input {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .crew-option span {
+    display: block;
+    padding: 12px 6px;
+    border: 2px solid var(--ink-3);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--ink);
+    font: 600 14px var(--font-body);
+    text-align: center;
+    white-space: nowrap;
+    transition:
+      border-color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .crew-option:hover span {
+    border-color: var(--green);
+  }
+
+  .crew-option input:checked + span {
+    border-color: var(--green);
+    background: var(--green);
+    color: #fff;
+  }
+
+  .crew-option input:focus-visible + span {
+    outline: 3px solid var(--green);
+    outline-offset: 3px;
+  }
+
+  .hp {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit {
+    width: 100%;
+    margin-top: 4px;
+    padding: 17px;
+  }
+
+  .submit:disabled {
+    cursor: progress;
+    opacity: 0.75;
+  }
+
+  .submit:disabled:hover {
+    background: var(--green);
+  }
+
+  .form-error {
+    font: 500 14px/1.5 var(--font-body);
+    color: var(--orange-ink);
+  }
+
+  .form-error a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .fine {
+    font: 400 13px var(--font-body);
+    color: var(--ink-3);
+  }
+
+  .success {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 12px 0;
+    outline: none;
+  }
+
+  .success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    background: var(--green-tint);
+    color: var(--green);
+  }
+
+  .success-title {
+    font: 700 36px/1 var(--font-display);
+    letter-spacing: -0.04em;
+  }
+
+  .success-body {
+    font: 400 17px/1.5 var(--font-body);
+    color: var(--ink-2);
+    overflow-wrap: anywhere;
+  }
+
+  .success-body strong {
+    color: var(--ink);
+  }
+
+  .reset {
+    align-self: flex-start;
+    padding: 12px 22px;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    background: transparent;
+    font: 600 14px var(--font-body);
+    cursor: pointer;
+  }
+
+  .reset:hover {
+    background: var(--surface);
+  }
+
+  @media (max-width: 760px) {
+    .panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  import { EMAIL_RE, type WaitlistPayload, type WaitlistResponse } from '../lib/waitlist';
+
+  declare global {
+    interface Window {
+      plausible?: (event: string, options?: { props?: Record<string, string> }) => void;
+    }
+  }
+
+  const form = document.querySelector<HTMLFormElement>('#waitlist-form')!;
+  const success = document.querySelector<HTMLElement>('#join .success')!;
+  const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+  const emailError = form.querySelector<HTMLElement>('#email-error')!;
+  const formError = form.querySelector<HTMLElement>('.form-error')!;
+  const submitBtn = form.querySelector<HTMLButtonElement>('.submit')!;
+  const submitText = submitBtn.querySelector<HTMLElement>('.submit-text')!;
+  const submitArrow = submitBtn.querySelector<SVGElement>('.submit-arrow')!;
+
+  // Mirrors the prototype: the error only appears after a submit attempt, then updates live.
+  let tried = false;
+
+  function emailIsValid() {
+    return EMAIL_RE.test(emailInput.value.trim());
+  }
+
+  function showEmailError(show: boolean) {
+    emailError.hidden = !show;
+    emailInput.setAttribute('aria-invalid', String(show));
+  }
+
+  function setSaving(saving: boolean) {
+    submitBtn.disabled = saving;
+    submitText.textContent = saving ? 'SAVING…' : 'SAVE MY SPOT';
+    submitArrow.style.display = saving ? 'none' : '';
+  }
+
+  emailInput.addEventListener('input', () => {
+    if (tried) showEmailError(!emailIsValid());
+  });
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    formError.hidden = true;
+
+    if (!emailIsValid()) {
+      tried = true;
+      showEmailError(true);
+      emailInput.focus();
+      return;
+    }
+    showEmailError(false);
+
+    const data = new FormData(form);
+    const payload: WaitlistPayload = {
+      name: String(data.get('name') ?? '').trim(),
+      email: emailInput.value.trim(),
+      trade: String(data.get('trade') ?? ''),
+      crew: String(data.get('crew') ?? ''),
+      source: 'landing',
+      company: String(data.get('company') ?? ''),
+    };
+
+    setSaving(true);
+    try {
+      const res = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const body = (await res.json().catch(() => ({ ok: false }))) as WaitlistResponse;
+      if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
+
+      window.plausible?.('waitlist_submit', { props: { trade: payload.trade || 'unspecified', crew: payload.crew } });
+
+      const first = payload.name.split(/\s+/)[0];
+      success.querySelector('[data-first-name]')!.textContent = first ? `, ${first}` : '';
+      success.querySelector('[data-email]')!.textContent = payload.email;
+      form.hidden = true;
+      success.hidden = false;
+      success.focus();
+    } catch {
+      formError.hidden = false;
+    } finally {
+      setSaving(false);
+    }
+  });
+
+  success.querySelector('.reset')!.addEventListener('click', () => {
+    form.reset();
+    tried = false;
+    showEmailError(false);
+    formError.hidden = true;
+    success.hidden = true;
+    form.hidden = false;
+    form.querySelector<HTMLInputElement>('input[name="name"]')!.focus();
+  });
+</script>

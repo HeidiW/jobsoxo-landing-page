@@ -1,0 +1,144 @@
+---
+import Plus from '@lucide/astro/icons/plus';
+import Minus from '@lucide/astro/icons/minus';
+
+const faqs = [
+  [
+    'Who is the beta for?',
+    'Owners of small construction businesses: painters, plasterers, GCs and other trades running a crew of roughly 1–20 people.',
+  ],
+  [
+    'How much does it cost?',
+    'It’s free during the beta. We’ll tell you about pricing well before it ends, and beta members get a founding-member rate.',
+  ],
+  [
+    'Does it work with Gusto and Gmail?',
+    'Yes. Payroll builds a worksheet you can copy into Gusto, and your Inbox pulls in the client emails that need a reply.',
+  ],
+  [
+    'Can I bring my existing clients and jobs?',
+    'Yes. Send us a spreadsheet and we’ll help you move it in during onboarding.',
+  ],
+  [
+    'Does it work on my phone?',
+    'It runs in any browser, so you can check jobs and send invoices from your phone on site.',
+  ],
+];
+---
+
+<section id="faq" class="container faq">
+  <h2 class="h2">Questions</h2>
+  <div class="items">
+    {
+      faqs.map(([q, a], i) => (
+        <div class="item">
+          <h3>
+            <button
+              type="button"
+              class="toggle"
+              id={`faq-q-${i}`}
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`faq-a-${i}`}
+            >
+              <span class="q">{q}</span>
+              <Plus size={20} class="icon-plus" />
+              <Minus size={20} class="icon-minus" />
+            </button>
+          </h3>
+          <div class="answer" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} hidden={i !== 0}>
+            {a}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(28px, 5vw, 80px);
+    align-items: start;
+    padding-bottom: var(--pad-y-lg);
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .item {
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--surface);
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 20px 24px;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+
+  .toggle:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .q {
+    flex: 1;
+    font: 600 18px var(--font-display);
+  }
+
+  .toggle :global(svg) {
+    flex: none;
+    color: var(--ink-2);
+  }
+
+  .toggle[aria-expanded='true'] :global(.icon-plus),
+  .toggle[aria-expanded='false'] :global(.icon-minus) {
+    display: none;
+  }
+
+  .answer {
+    padding: 0 24px 22px;
+    font: 400 16px/1.55 var(--font-body);
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 760px) {
+    .faq {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
+
+<script>
+  // One item open at a time; clicking the open item closes it.
+  const toggles = Array.from(document.querySelectorAll<HTMLButtonElement>('#faq .toggle'));
+
+  function setOpen(btn: HTMLButtonElement, open: boolean) {
+    btn.setAttribute('aria-expanded', String(open));
+    document.getElementById(btn.getAttribute('aria-controls')!)!.hidden = !open;
+  }
+
+  for (const btn of toggles) {
+    btn.addEventListener('click', () => {
+      const wasOpen = btn.getAttribute('aria-expanded') === 'true';
+      for (const other of toggles) setOpen(other, false);
+      if (!wasOpen) setOpen(btn, true);
+    });
+  }
+</script>

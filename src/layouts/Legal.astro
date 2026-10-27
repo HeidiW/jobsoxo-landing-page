@@ -1,0 +1,100 @@
+---
+import Base from './Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  effective: string;
+}
+
+const { title, description, heading, effective } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <Nav variant="legal" />
+  <main id="main" class="legal">
+    <header class="legal-head">
+      <h1>{heading}</h1>
+      <p class="effective">Effective {effective}</p>
+    </header>
+    <slot />
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: calc(760px + 2 * var(--pad-x));
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 80px) var(--pad-x) 96px;
+    font: 400 17px/1.65 var(--font-body);
+    color: #3a3e39;
+  }
+
+  .legal-head {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  h1 {
+    font: 700 clamp(40px, 6vw, 64px) / 0.95 var(--font-display);
+    letter-spacing: -0.045em;
+    color: var(--ink);
+  }
+
+  .effective {
+    font: 500 15px var(--font-body);
+    color: var(--ink-2);
+  }
+
+  .legal :global(section) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .legal :global(section.contact) {
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .legal :global(h2) {
+    font: 700 26px/1.15 var(--font-display);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  .legal :global(strong) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .legal :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .legal :global(a:hover) {
+    color: var(--green-hover);
+  }
+
+  .legal :global(ul) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding-left: 4px;
+    list-style: none;
+  }
+
+  .legal :global(li::before) {
+    content: '• ';
+  }
+</style>

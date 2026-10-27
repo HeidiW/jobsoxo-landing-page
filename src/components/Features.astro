@@ -1,0 +1,186 @@
+---
+import Calculator from '@lucide/astro/icons/calculator';
+import FileText from '@lucide/astro/icons/file-text';
+import Users from '@lucide/astro/icons/users';
+import ClipboardCheck from '@lucide/astro/icons/clipboard-check';
+import Check from '@lucide/astro/icons/check';
+
+const features = [
+  {
+    n: '01',
+    color: 'green',
+    Icon: Calculator,
+    title: 'Price jobs',
+    body: 'Build a price by the square foot, the hour or the lot. Save your rates once and reuse them on every quote.',
+    points: ['Line items by room or section', 'Labor and materials kept separate', 'Turn a quote into an invoice in one tap'],
+    img: '/app-job-detail.png',
+    alt: 'Job pricing screen',
+  },
+  {
+    n: '02',
+    color: 'blue',
+    Icon: FileText,
+    title: 'Send invoices and get paid',
+    body: 'See the invoice exactly as your client will before you hit send. They can pay online, and you see who owes what at a glance.',
+    points: [
+      'Deposits, progress and final invoices',
+      'Automatic payment reminders at 7, 14 and 30 days',
+      'Know what’s overdue the second it is',
+    ],
+    img: '/app-new-invoice.png',
+    alt: 'New invoice screen',
+  },
+  {
+    n: '03',
+    color: 'gold',
+    Icon: Users,
+    title: 'Pay your crew',
+    body: 'Crew text in their hours, and JobsOxo adds them up by job. Day rates, hourly, W-2 or 1099 all work.',
+    points: ['Hours tracked against each job', 'Taxes and deductions worked out for you', 'Ready-to-copy worksheet for Gusto'],
+    img: '/app-payroll.png',
+    alt: 'Payroll screen',
+  },
+  {
+    n: '04',
+    color: 'orange',
+    Icon: ClipboardCheck,
+    title: 'Run jobs and change orders',
+    body: 'Every job in one place: who’s on it, what it costs and what’s changed. Get the extra work signed off before you start it.',
+    points: ['Week-at-a-glance schedule for every crew', 'Change orders tied to the right invoice', 'Materials logged against the job'],
+    img: '/app-change-orders.png',
+    alt: 'Change orders screen',
+  },
+];
+---
+
+<section id="what" class="container features" aria-label="What it does">
+  {
+    features.map(({ n, color, Icon, title, body, points, img, alt }) => (
+      <article
+        class="panel"
+        style={`--tint: var(--${color}-tint); --solid: var(--${color}); --ink-c: var(--${color}-ink);`}
+      >
+        <div class="text">
+          <div class="label">
+            <div class="tile">
+              <Icon size={24} />
+            </div>
+            <span class="num">{n}</span>
+          </div>
+          <h3>{title}</h3>
+          <p class="body">{body}</p>
+          <ul class="points">
+            {points.map((p) => (
+              <li>
+                <Check size={18} class="check" />
+                <span>{p}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="shot">
+          <img src={img} alt={alt} loading="lazy" decoding="async" />
+        </div>
+      </article>
+    ))
+  }
+</section>
+
+<style>
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: var(--pad-y);
+  }
+
+  .panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+    padding: clamp(24px, 4vw, 56px);
+    border-radius: 28px;
+    background: var(--tint);
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: var(--solid);
+    color: #fff;
+  }
+
+  .num {
+    font: 500 15px var(--font-mono);
+    color: var(--ink-c);
+  }
+
+  h3 {
+    font: 700 clamp(36px, 4.4vw, 60px) / 0.95 var(--font-display);
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+    color: var(--ink-c);
+  }
+
+  .body {
+    max-width: 480px;
+    font: 400 18px/1.5 var(--font-body);
+    color: var(--ink-2);
+  }
+
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font: 500 16px/1.4 var(--font-body);
+  }
+
+  .points :global(.check) {
+    flex: none;
+    margin-top: 1px;
+    color: var(--solid);
+  }
+
+  .shot {
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--card);
+    box-shadow: var(--shadow-shot);
+  }
+
+  .shot img {
+    width: 100%;
+  }
+
+  @media (max-width: 760px) {
+    .panel {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

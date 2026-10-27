@@ -1,0 +1,256 @@
+/* ---------- Design tokens ---------- */
+:root,
+[data-theme='light'] {
+  --bg: #ffffff;
+  --surface: #f5f6f3;
+  --card: #ffffff;
+  --ink: #121412;
+  --ink-2: #5a5f59;
+  --ink-3: #8b908a;
+  --line: #e4e7e2;
+  --green: #31572c;
+  --green-hover: #284824;
+  --green-ink: #31572c;
+  --green-tint: #eef3ec;
+  --blue: #3c78ae;
+  --blue-ink: #2a5b88;
+  --blue-tint: #edf4fb;
+  --gold: #c2a23a;
+  --gold-ink: #7a6312;
+  --gold-tint: #fdfbe4;
+  --orange: #e8643a;
+  --orange-ink: #b5441c;
+  --orange-tint: #fdeee7;
+  --logo-lime: #ecf39e;
+
+  --font-display: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --max-w: 1280px;
+  --pad-x: clamp(20px, 4vw, 48px);
+  --pad-y: clamp(48px, 7vw, 96px);
+  --pad-y-lg: clamp(56px, 8vw, 112px);
+
+  --shadow-shot: 0 1px 2px rgba(0, 0, 0, 0.05), 0 16px 40px rgba(0, 0, 0, 0.08);
+  --shadow-hero-shot: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* Optional dark theme — not enabled at launch. Set data-theme="dark" on <html> to use. */
+[data-theme='dark'] {
+  --bg: #0d110e;
+  --surface: #141a16;
+  --card: #1b231d;
+  --ink: #ecf1ec;
+  --ink-2: #a3ada5;
+  --ink-3: #6f7a72;
+  --line: #2a352d;
+  --green: #4a7f42;
+  --green-hover: #5a9151;
+  --green-ink: #a9cfa0;
+  --green-tint: #152112;
+  --blue: #6fa3d4;
+  --blue-ink: #9cc2e6;
+  --blue-tint: #131f2a;
+  --orange: #f07c55;
+  --orange-ink: #f6a285;
+  --orange-tint: #2a1811;
+  --gold: #d8bc55;
+  --gold-ink: #e6d07e;
+  --gold-tint: #24200e;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--green-ink);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--green);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--green);
+  outline-offset: 3px;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+.icon {
+  display: block;
+  flex: none;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font: 600 14px var(--font-body);
+}
+
+.skip-link:focus {
+  top: 12px;
+  color: #fff;
+}
+
+/* ---------- Layout ---------- */
+/* max-width is the content width; side padding sits outside it. */
+.container {
+  max-width: calc(var(--max-w) + 2 * var(--pad-x));
+  margin: 0 auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+/* ---------- Type ---------- */
+.h2 {
+  font: 700 clamp(38px, 5vw, 64px) / 0.98 var(--font-display);
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  font: 600 16px var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn-primary {
+  padding: 16px 28px;
+  border: 0;
+  background: var(--green);
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary:hover {
+  background: var(--green-hover);
+  color: #fff;
+}
+
+.btn-outline {
+  padding: 16px 28px;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-outline:hover {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* ---------- Photo placeholders ---------- */
+.photo {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: var(--ink-3);
+  font: 500 14px/1.4 var(--font-body);
+}
+
+.photo-placeholder svg {
+  opacity: 0.7;
+}

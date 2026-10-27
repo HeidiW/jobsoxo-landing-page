@@ -1,0 +1,27 @@
+---
+import ImageIcon from '@lucide/astro/icons/image';
+
+interface Props {
+  /** Image path in /public. Leave empty to show the placeholder until a real photo is supplied. */
+  src?: string;
+  alt: string;
+  placeholder: string;
+  class?: string;
+}
+
+const { src, alt, placeholder, class: className } = Astro.props;
+---
+
+<div class:list={['photo', className]}>
+  {
+    src ? (
+      <img src={src} alt={alt} loading="lazy" decoding="async" />
+    ) : (
+      // PLACEHOLDER — replace by passing `src` once the owner supplies the photo.
+      <div class="photo-placeholder" role="img" aria-label={alt}>
+        <ImageIcon size={28} />
+        <span>{placeholder}</span>
+      </div>
+    )
+  }
+</div>

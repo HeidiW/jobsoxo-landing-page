@@ -1,0 +1,113 @@
+---
+import Hammer from '@lucide/astro/icons/hammer';
+import Photo from './Photo.astro';
+---
+
+<section class="container built">
+  <div class="grid">
+    <Photo class="founder-photo" alt="The founder on a job" placeholder="Photo placeholder: founder on a job" />
+    <div class="card">
+      <div class="top">
+        <div class="eyebrow"><Hammer size={18} />Built in the trade</div>
+        <h2>Made by a contractor, not a software company.</h2>
+        <p class="para">
+          JobsOxo was built by someone who runs a construction business and got tired of doing the books at midnight.
+          Every screen started as a real problem on a real job.
+        </p>
+        <p class="para">
+          The name says it: <strong>JobsOxo</strong> means “Job’s well done.” It’s what you say when the work’s finished,
+          signed off and paid for.
+        </p>
+      </div>
+      <figure class="quote">
+        <blockquote>
+          “I didn't want another app with forty tabs. I wanted to price the job, pay my guys and get paid. So, my wife and
+          I built that.”
+        </blockquote>
+        <figcaption>Owner, Conor Foy Plaster · New York City</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .built {
+    padding-bottom: var(--pad-y);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+    gap: 20px;
+  }
+
+  :global(.founder-photo) {
+    min-height: clamp(320px, 36vw, 480px);
+    background: var(--surface);
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+    padding: clamp(28px, 4vw, 56px);
+    border-radius: 28px;
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 600 14px var(--font-body);
+    color: var(--green-tint);
+  }
+
+  h2 {
+    font: 700 clamp(36px, 4.6vw, 60px) / 0.95 var(--font-display);
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .para {
+    font: 400 18px/1.55 var(--font-body);
+    opacity: 0.85;
+  }
+
+  .para strong {
+    font-weight: 600;
+  }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  blockquote {
+    margin: 0;
+    font: 500 clamp(19px, 1.8vw, 23px) / 1.4 var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  figcaption {
+    font: 600 15px var(--font-body);
+  }
+
+  @media (max-width: 760px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

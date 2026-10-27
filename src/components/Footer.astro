@@ -1,0 +1,59 @@
+---
+import LogoMark from './LogoMark.astro';
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="logo">
+      <LogoMark size={24} />
+      <span>JobsOxo</span>
+    </div>
+    <span>Price, manage, and get paid.</span>
+    <div class="links">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:hello@jobsoxo.com">hello@jobsoxo.com</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    font: 400 14px var(--font-body);
+    color: var(--ink-3);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+    font: 800 15px var(--font-display);
+    letter-spacing: -0.03em;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-left: auto;
+  }
+
+  .links a {
+    color: var(--ink-3);
+  }
+
+  .links a:hover {
+    color: var(--ink);
+  }
+</style>

@@ -1,0 +1,41 @@
+
+<section class="container problem">
+  <h2 class="h2">Five apps, a spreadsheet and a shoebox of receipts.</h2>
+  <div class="copy">
+    <p>
+      Most small contractors price jobs in one place, invoice in another, run payroll somewhere else and keep change
+      orders in their texts. Nothing talks to anything, and the paperwork eats your evenings.
+    </p>
+    <p class="strong">JobsOxo puts the four jobs that actually make you money into one app.</p>
+  </div>
+</section>
+
+<style>
+  .problem {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: clamp(32px, 5vw, 80px);
+    align-items: start;
+    padding-top: var(--pad-y);
+    padding-bottom: var(--pad-y);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font: 400 19px/1.55 var(--font-body);
+    color: var(--ink-2);
+  }
+
+  .strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  @media (max-width: 760px) {
+    .problem {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
