@@ -4,7 +4,7 @@ Marketing site for JobsOxo: landing page, `/privacy`, `/terms`, and a waitlist e
 
 - **Stack:** Astro + TypeScript, deployed on Vercel. Pages are static; `POST /api/waitlist` is the only serverless function.
 - **Waitlist:** stored in Supabase (`waitlist` table); a confirmation email goes out through Resend.
-- **Analytics:** Plausible (production builds only). Each signup sends a `waitlist_submit` event with `trade` and `crew` props.
+- **Analytics:** Plausible, plus Google Analytics 4 when `PUBLIC_GA_MEASUREMENT_ID` is set (production builds only). Each signup sends Plausible `waitlist_submit` and GA4 `sign_up`, both with `trade` and `crew`.
 
 ## Develop
 

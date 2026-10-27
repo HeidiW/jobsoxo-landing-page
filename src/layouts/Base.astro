@@ -11,6 +11,8 @@ const { title, description, ogImage = '/app-dashboard.png' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImageUrl = new URL(ogImage, Astro.site);
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN || 'jobsoxo.com';
+// Google Analytics 4 is optional: it only loads when a measurement ID (G-XXXXXXXXXX) is set.
+const gaId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
@@ -52,6 +54,19 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN || 'jobsoxo.com'
           <script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
           <script is:inline>
             window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments); };
+          </script>
+        </>
+      )
+    }
+    {
+      import.meta.env.PROD && gaId && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script is:inline define:vars={{ gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () { window.dataLayer.push(arguments); };
+            window.gtag('js', new Date());
+            window.gtag('config', gaId);
           </script>
         </>
       )

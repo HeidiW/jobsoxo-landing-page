@@ -352,6 +352,7 @@ import { CREW_SIZES, DEFAULT_CREW, TRADES } from '../lib/waitlist';
   declare global {
     interface Window {
       plausible?: (event: string, options?: { props?: Record<string, string> }) => void;
+      gtag?: (command: 'event', name: string, params?: Record<string, string>) => void;
     }
   }
 
@@ -418,7 +419,10 @@ import { CREW_SIZES, DEFAULT_CREW, TRADES } from '../lib/waitlist';
       const body = (await res.json().catch(() => ({ ok: false }))) as WaitlistResponse;
       if (!res.ok || !body.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
 
-      window.plausible?.('waitlist_submit', { props: { trade: payload.trade || 'unspecified', crew: payload.crew } });
+      const props = { trade: payload.trade || 'unspecified', crew: payload.crew };
+      window.plausible?.('waitlist_submit', { props });
+      // GA4's recommended event name for signups, so it can be marked as a key event.
+      window.gtag?.('event', 'sign_up', { method: 'waitlist', ...props });
 
       const first = payload.name.split(/\s+/)[0];
       success.querySelector('[data-first-name]')!.textContent = first ? `, ${first}` : '';
