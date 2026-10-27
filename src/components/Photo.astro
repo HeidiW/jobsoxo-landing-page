@@ -7,15 +7,23 @@ interface Props {
   alt: string;
   placeholder: string;
   class?: string;
+  /** Load immediately — use for photos visible on first paint (e.g. the hero). */
+  eager?: boolean;
 }
 
-const { src, alt, placeholder, class: className } = Astro.props;
+const { src, alt, placeholder, class: className, eager = false } = Astro.props;
 ---
 
 <div class:list={['photo', className]}>
   {
     src ? (
-      <img src={src} alt={alt} loading="lazy" decoding="async" />
+      <img
+        src={src}
+        alt={alt}
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : 'auto'}
+        decoding="async"
+      />
     ) : (
       // PLACEHOLDER — replace by passing `src` once the owner supplies the photo.
       <div class="photo-placeholder" role="img" aria-label={alt}>

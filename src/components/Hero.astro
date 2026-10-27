@@ -27,7 +27,13 @@ const { layout = 'photo' } = Astro.props;
   {
     layout === 'photo' ? (
       <div class="media">
-        <Photo class="hero-photo" alt="The owner on a job site" placeholder="Photo placeholder: owner on a job site" />
+        <Photo
+          class="hero-photo"
+          src="/job-site.jpg"
+          alt="An interior job site in progress: taped drywall, a scissor lift and stacked boards, with the city skyline through the windows"
+          placeholder="Photo placeholder: owner on a job site"
+          eager
+        />
         <div class="card">
           <HardHat size={44} />
           <div class="card-text">
